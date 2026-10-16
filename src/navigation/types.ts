@@ -17,10 +17,25 @@ export type CollectionStackParamList = {
   AiNormalize: { collectionId?: string };
 };
 
+export type PracticeStackParamList = {
+  DueToday: undefined;
+  ReviewSession: { collectionId?: string; limit?: number };
+  ReviewComplete: {
+    totalReviewed: number;
+    againCount: number;
+    hardCount: number;
+    goodCount: number;
+    easyCount: number;
+    durationSeconds: number;
+  };
+  PracticeStats: undefined;
+  History: undefined;
+};
+
 export type MainTabParamList = {
   Home: undefined;
   Collections: NavigatorScreenParams<CollectionStackParamList>;
-  Practice: undefined;
+  Practice: NavigatorScreenParams<PracticeStackParamList>;
   Profile: undefined;
 };
 

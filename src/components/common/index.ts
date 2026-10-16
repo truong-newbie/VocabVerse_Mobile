@@ -1,11 +1,10 @@
 export { Card } from './Card';
 export { Icon } from './Icon';
-export type { IconName } from './Icon';
 export { IconButton } from './IconButton';
-export { SearchBar } from './SearchBar';
-export { Chip } from './Chip';
-export type { ChipVariant, ChipColor } from './Chip';
-export { Modal } from './Modal';
 export { LoadingOverlay } from './LoadingOverlay';
-export { TextArea } from './TextArea';
+export { Modal } from './Modal';
+export { SearchBar } from './SearchBar';
 export { SectionHeader } from './SectionHeader';
+export { TextArea } from './TextArea';
+export { Chip } from './Chip';
+export { StatsCard } from './StatsCard';

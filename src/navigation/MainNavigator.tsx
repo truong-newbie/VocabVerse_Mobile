@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeScreen, PracticeScreen, ProfileScreen } from '@/screens';
 import { CollectionStack } from '@/navigation/CollectionStack';
+import { PracticeStack } from '@/navigation/PracticeStack';
 import { theme } from '@/theme';
 import type { MainTabParamList } from './types';
 
@@ -24,7 +25,7 @@ export function MainNavigator() {
       />
       <Tab.Screen
         name="Practice"
-        component={PracticeScreen}
+        component={PracticeStack}
         options={{ title: 'Luyện tập' }}
       />
       <Tab.Screen name="Profile" component={ProfileScreen} options={{ title: 'Hồ sơ' }} />
