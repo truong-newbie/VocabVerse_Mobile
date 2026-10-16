@@ -255,4 +255,5 @@ const styles = StyleSheet.create({
   summaryCol: { flex: 1, gap: theme.spacing.xxs },
   wordList: { gap: theme.spacing.sm },
   wordCard: { padding: theme.spacing.md },
+  practiceRow: { flexDirection: 'row', gap: theme.spacing.sm, flexWrap: 'wrap' },
 });
