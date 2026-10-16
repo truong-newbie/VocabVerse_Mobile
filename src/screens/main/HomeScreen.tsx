@@ -179,6 +179,73 @@ export function HomeScreen() {
         </View>
 
         <SectionHeader
+          title="Luyện tập"
+          description="Bốn cách học mỗi ngày"
+        />
+        <View style={styles.toolsRow}>
+          <Pressable
+            style={styles.toolCard}
+            onPress={() =>
+              navigation.navigate('Practice' as never, {
+                screen: 'QuizStart',
+                params: {},
+              } as any)
+            }
+          >
+            <Icon name="list" color={theme.colors.primary} />
+            <Text variant="bodyMedium">Quiz</Text>
+            <Text variant="caption" color="muted">
+              Trắc nghiệm nhanh
+            </Text>
+          </Pressable>
+          <Pressable
+            style={styles.toolCard}
+            onPress={() =>
+              navigation.navigate('Practice' as never, {
+                screen: 'TypingStart',
+                params: {},
+              } as any)
+            }
+          >
+            <Icon name="edit" color={theme.colors.primary} />
+            <Text variant="bodyMedium">Gõ</Text>
+            <Text variant="caption" color="muted">
+              Nghe và viết lại
+            </Text>
+          </Pressable>
+        </View>
+        <View style={styles.toolsRow}>
+          <Pressable
+            style={styles.toolCard}
+            onPress={() =>
+              navigation.navigate('Practice' as never, {
+                screen: 'ShadowingList',
+              } as any)
+            }
+          >
+            <Icon name="mic" color={theme.colors.primary} />
+            <Text variant="bodyMedium">Shadowing</Text>
+            <Text variant="caption" color="muted">
+              Bắt chước người bản xứ
+            </Text>
+          </Pressable>
+          <Pressable
+            style={styles.toolCard}
+            onPress={() =>
+              navigation.navigate('Practice' as never, {
+                screen: 'RoleplayList',
+              } as any)
+            }
+          >
+            <Icon name="users" color={theme.colors.primary} />
+            <Text variant="bodyMedium">Roleplay</Text>
+            <Text variant="caption" color="muted">
+              Hội thoại với AI
+            </Text>
+          </Pressable>
+        </View>
+
+        <SectionHeader
           title="Bộ sưu tập công khai"
           description="Khám phá từ cộng đồng"
         />
