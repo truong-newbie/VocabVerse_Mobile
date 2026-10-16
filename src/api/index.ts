@@ -16,3 +16,4 @@ export type {
   AiNormalizeQuotaResponse,
 } from './ai.api';
 export { reviewApi } from './review.api';
+export { quizApi } from './quiz.api';
