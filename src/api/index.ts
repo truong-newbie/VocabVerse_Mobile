@@ -18,3 +18,4 @@ export type {
 export { reviewApi } from './review.api';
 export { quizApi } from './quiz.api';
 export { typingApi } from './typing.api';
+export { shadowingApi } from './shadowing.api';
