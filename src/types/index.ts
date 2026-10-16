@@ -8,3 +8,4 @@ export * from './review';
 export * from './quiz';
 export * from './typing';
 export * from './shadowing';
+export * from './roleplay';
