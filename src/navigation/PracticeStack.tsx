@@ -81,6 +81,16 @@ export function PracticeStack() {
         component={TypingResultScreen}
         options={{ title: 'Kết quả', headerBackVisible: false, gestureEnabled: false }}
       />
+      <Stack.Screen
+        name="ShadowingList"
+        component={ShadowingListScreen}
+        options={{ title: 'Shadowing' }}
+      />
+      <Stack.Screen
+        name="Shadowing"
+        component={ShadowingScreen}
+        options={{ title: 'Lesson' }}
+      />
     </Stack.Navigator>
   );
 }

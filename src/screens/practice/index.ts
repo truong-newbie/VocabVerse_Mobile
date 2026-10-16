@@ -9,3 +9,5 @@ export { QuizResultScreen } from './QuizResultScreen';
 export { TypingStartScreen } from './TypingStartScreen';
 export { TypingSessionScreen } from './TypingSessionScreen';
 export { TypingResultScreen } from './TypingResultScreen';
+export { ShadowingListScreen } from './ShadowingListScreen';
+export { ShadowingScreen } from './ShadowingScreen';
