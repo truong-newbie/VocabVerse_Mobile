@@ -6,3 +6,4 @@ export * from './user';
 export * from './vocabulary';
 export * from './review';
 export * from './quiz';
+export * from './typing';
