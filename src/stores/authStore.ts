@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { authApi } from '@/services/api';
-import { extractApiError, storage } from '@/services';
+import { authApi } from '@/api/auth.api';
+import { extractApiError, storage } from '@/api';
 import type { AuthSession, LoginRequest, RegisterRequest, UserInfo } from '@/types';
 
 type AuthStatus = 'loading' | 'authenticated' | 'unauthenticated';

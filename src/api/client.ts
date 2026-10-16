@@ -4,7 +4,8 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 import { API_BASE_URL, API_TIMEOUT } from '@/app/config';
-import { storage } from '@/services/storage';
+import { storage } from '@/api/storage';
+import { extractApiError } from '@/api/errors';
 import type { ApiError, ApiResponse, RefreshTokenResponse } from '@/types';
 
 let isRefreshing = false;
@@ -89,19 +90,4 @@ api.interceptors.response.use(
   }
 );
 
-export function extractApiError(error: unknown): ApiError {
-  if (axios.isAxiosError<ApiError>(error)) {
-    return (
-      error.response?.data ?? {
-        success: false,
-        message: error.message,
-        errorCode: 'NETWORK_ERROR',
-      }
-    );
-  }
-  return {
-    success: false,
-    message: 'Unknown error',
-    errorCode: 'UNKNOWN_ERROR',
-  };
-}
+export { extractApiError };
