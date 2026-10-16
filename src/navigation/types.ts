@@ -30,6 +30,17 @@ export type PracticeStackParamList = {
   };
   PracticeStats: undefined;
   History: undefined;
+  QuizStart: { collectionId?: string };
+  QuizSession: { sessionId: string };
+  QuizResult: { sessionId: string };
+  TypingStart: { collectionId?: string };
+  TypingSession: { sessionId: string };
+  TypingResult: { sessionId: string };
+  ShadowingList: undefined;
+  Shadowing: { lessonId: string };
+  RoleplayList: undefined;
+  RoleplaySession: { sessionId: string };
+  RoleplayResult: { sessionId: string };
 };
 
 export type MainTabParamList = {

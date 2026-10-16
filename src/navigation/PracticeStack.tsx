@@ -3,6 +3,9 @@ import {
   DueTodayScreen,
   HistoryScreen,
   PracticeStatsScreen,
+  QuizResultScreen,
+  QuizSessionScreen,
+  QuizStartScreen,
   ReviewCompleteScreen,
   ReviewSessionScreen,
 } from '@/screens/practice';
@@ -44,6 +47,21 @@ export function PracticeStack() {
         name="History"
         component={HistoryScreen}
         options={{ title: 'Lịch sử' }}
+      />
+      <Stack.Screen
+        name="QuizStart"
+        component={QuizStartScreen}
+        options={{ title: 'Quiz' }}
+      />
+      <Stack.Screen
+        name="QuizSession"
+        component={QuizSessionScreen}
+        options={{ title: 'Đang làm bài' }}
+      />
+      <Stack.Screen
+        name="QuizResult"
+        component={QuizResultScreen}
+        options={{ title: 'Kết quả', headerBackVisible: false, gestureEnabled: false }}
       />
     </Stack.Navigator>
   );
