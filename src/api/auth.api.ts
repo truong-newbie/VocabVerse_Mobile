@@ -4,16 +4,24 @@ import type {
   LoginRequest,
   LoginResponse,
   RegisterRequest,
-  UserInfo,
+  RefreshTokenRequest,
+  RefreshTokenResponse,
 } from '@/types';
 
 export const authApi = {
   login: (data: LoginRequest) =>
-    api.post<ApiResponse<LoginResponse>>('/auth/login', data).then(r => r.data.data),
+    api
+      .post<ApiResponse<LoginResponse>>('/auth/login', data)
+      .then(r => r.data.data),
 
   register: (data: RegisterRequest) =>
     api
-      .post<ApiResponse<UserInfo>>('/auth/register', data)
+      .post<ApiResponse<LoginResponse>>('/auth/register', data)
+      .then(r => r.data.data),
+
+  refresh: (data: RefreshTokenRequest) =>
+    api
+      .post<ApiResponse<RefreshTokenResponse>>('/auth/refresh', data)
       .then(r => r.data.data),
 
   logout: (refreshToken: string) =>
