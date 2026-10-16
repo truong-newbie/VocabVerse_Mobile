@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { Button, Input, Screen, Text } from '@/components/ui';
+import { useToast } from '@/hooks';
 import { useAuthStore } from '@/stores';
+import { formResolver, z } from '@/lib';
 import { theme } from '@/theme';
 import type { AuthStackParamList } from '@/navigation/types';
 
@@ -19,28 +19,22 @@ type FormData = z.infer<typeof schema>;
 export function LoginScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
   const login = useAuthStore(s => s.login);
-  const error = useAuthStore(s => s.error);
-  const [submitting, setSubmitting] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [validationError, setValidationError] = useState<string | null>(null);
+  const toast = useToast();
 
-  const onSubmit = async () => {
-    const result = schema.safeParse({ email, password });
-    if (!result.success) {
-      setValidationError(result.error.issues[0]?.message ?? 'Lỗi dữ liệu');
-      return;
-    }
-    setValidationError(null);
-    setSubmitting(true);
+  const { control, handleSubmit, formState, setError } = useForm<FormData>({
+    resolver: formResolver(schema),
+    defaultValues: { email: '', password: '' },
+  });
+
+  const onSubmit = handleSubmit(async values => {
     try {
-      await login(result.data);
-    } catch {
-      // error already in store
-    } finally {
-      setSubmitting(false);
+      await login(values);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Đăng nhập thất bại';
+      setError('root', { message: msg });
+      toast.error(msg);
     }
-  };
+  });
 
   return (
     <Screen scroll>
@@ -54,33 +48,49 @@ export function LoginScreen() {
       </View>
 
       <View style={styles.form}>
-        <Input
-          label="Email"
-          placeholder="you@example.com"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
+        <Controller
+          control={control}
+          name="email"
+          render={({ field, fieldState }) => (
+            <Input
+              label="Email"
+              placeholder="you@example.com"
+              value={field.value}
+              onChangeText={field.onChange}
+              onBlur={field.onBlur}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
+              error={fieldState.error?.message}
+            />
+          )}
         />
-        <Input
-          label="Mật khẩu"
-          placeholder="********"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
+        <Controller
+          control={control}
+          name="password"
+          render={({ field, fieldState }) => (
+            <Input
+              label="Mật khẩu"
+              placeholder="********"
+              value={field.value}
+              onChangeText={field.onChange}
+              onBlur={field.onBlur}
+              secureTextEntry
+              error={fieldState.error?.message}
+            />
+          )}
         />
 
-        {(validationError || error) ? (
+        {formState.errors.root?.message ? (
           <Text variant="small" color="danger">
-            {validationError || error}
+            {formState.errors.root.message}
           </Text>
         ) : null}
 
         <Button
           title="Đăng nhập"
           onPress={onSubmit}
-          isLoading={submitting}
+          isLoading={formState.isSubmitting}
           fullWidth
         />
         <Button
