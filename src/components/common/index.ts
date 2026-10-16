@@ -8,3 +8,4 @@ export { SectionHeader } from './SectionHeader';
 export { TextArea } from './TextArea';
 export { Chip } from './Chip';
 export { StatsCard } from './StatsCard';
+export { AudioControls } from './AudioControls';

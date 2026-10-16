@@ -5,3 +5,7 @@ export * from './enums';
 export * from './user';
 export * from './vocabulary';
 export * from './review';
+export * from './quiz';
+export * from './typing';
+export * from './shadowing';
+export * from './roleplay';

@@ -3,8 +3,14 @@ import {
   DueTodayScreen,
   HistoryScreen,
   PracticeStatsScreen,
+  QuizResultScreen,
+  QuizSessionScreen,
+  QuizStartScreen,
   ReviewCompleteScreen,
   ReviewSessionScreen,
+  TypingResultScreen,
+  TypingSessionScreen,
+  TypingStartScreen,
 } from '@/screens/practice';
 import { theme } from '@/theme';
 import type { PracticeStackParamList } from './types';
@@ -44,6 +50,61 @@ export function PracticeStack() {
         name="History"
         component={HistoryScreen}
         options={{ title: 'Lịch sử' }}
+      />
+      <Stack.Screen
+        name="QuizStart"
+        component={QuizStartScreen}
+        options={{ title: 'Quiz' }}
+      />
+      <Stack.Screen
+        name="QuizSession"
+        component={QuizSessionScreen}
+        options={{ title: 'Đang làm bài' }}
+      />
+      <Stack.Screen
+        name="QuizResult"
+        component={QuizResultScreen}
+        options={{ title: 'Kết quả', headerBackVisible: false, gestureEnabled: false }}
+      />
+      <Stack.Screen
+        name="TypingStart"
+        component={TypingStartScreen}
+        options={{ title: 'Luyện gõ' }}
+      />
+      <Stack.Screen
+        name="TypingSession"
+        component={TypingSessionScreen}
+        options={{ title: 'Đang gõ' }}
+      />
+      <Stack.Screen
+        name="TypingResult"
+        component={TypingResultScreen}
+        options={{ title: 'Kết quả', headerBackVisible: false, gestureEnabled: false }}
+      />
+      <Stack.Screen
+        name="ShadowingList"
+        component={ShadowingListScreen}
+        options={{ title: 'Shadowing' }}
+      />
+      <Stack.Screen
+        name="Shadowing"
+        component={ShadowingScreen}
+        options={{ title: 'Lesson' }}
+      />
+      <Stack.Screen
+        name="RoleplayList"
+        component={RoleplayListScreen}
+        options={{ title: 'Roleplay' }}
+      />
+      <Stack.Screen
+        name="RoleplaySession"
+        component={RoleplaySessionScreen}
+        options={{ title: 'Đang hội thoại' }}
+      />
+      <Stack.Screen
+        name="RoleplayResult"
+        component={RoleplayResultScreen}
+        options={{ title: 'Kết thúc', headerBackVisible: false, gestureEnabled: false }}
       />
     </Stack.Navigator>
   );

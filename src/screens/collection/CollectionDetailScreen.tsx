@@ -142,6 +142,54 @@ export function CollectionDetailScreen({ route }: Props) {
         </Card>
 
         <SectionHeader
+          title="Luyện tập bộ này"
+          description="Bốn chế độ có thể chạy ngay trên bộ sưu tập này"
+        />
+        <View style={styles.practiceRow}>
+          <Button
+            title="Quiz"
+            size="sm"
+            onPress={() =>
+              navigation
+                .getParent()
+                ?.navigate('Practice', {
+                  screen: 'QuizStart',
+                  params: { collectionId },
+                } as any)
+            }
+            disabled={words.length === 0}
+          />
+          <Button
+            title="Gõ"
+            size="sm"
+            variant="secondary"
+            onPress={() =>
+              navigation
+                .getParent()
+                ?.navigate('Practice', {
+                  screen: 'TypingStart',
+                  params: { collectionId },
+                } as any)
+            }
+            disabled={words.length === 0}
+          />
+          <Button
+            title="Ôn flashcard"
+            size="sm"
+            variant="secondary"
+            onPress={() =>
+              navigation
+                .getParent()
+                ?.navigate('Practice', {
+                  screen: 'ReviewSession',
+                  params: { collectionId, limit: 20 },
+                } as any)
+            }
+            disabled={words.length === 0}
+          />
+        </View>
+
+        <SectionHeader
           title="Từ vựng"
           description={`Hiển thị ${words.length} / ${collection.totalWords} từ`}
           action={
@@ -207,4 +255,5 @@ const styles = StyleSheet.create({
   summaryCol: { flex: 1, gap: theme.spacing.xxs },
   wordList: { gap: theme.spacing.sm },
   wordCard: { padding: theme.spacing.md },
+  practiceRow: { flexDirection: 'row', gap: theme.spacing.sm, flexWrap: 'wrap' },
 });
