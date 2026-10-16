@@ -15,3 +15,4 @@ export type {
   NormalizeBulkVocabularyResponse,
   AiNormalizeQuotaResponse,
 } from './ai.api';
+export { reviewApi } from './review.api';

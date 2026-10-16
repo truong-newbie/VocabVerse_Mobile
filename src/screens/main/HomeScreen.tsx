@@ -5,9 +5,9 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import type { CompositeNavigationProp } from '@react-navigation/native';
 import { Card, ErrorState, Screen, Text } from '@/components/ui';
-import { Chip, Icon, SectionHeader } from '@/components/common';
+import { Chip, Icon, SectionHeader, StatsCard } from '@/components/common';
 import { useApiQuery } from '@/hooks';
-import { collectionApi } from '@/api';
+import { collectionApi, reviewApi } from '@/api';
 import { formatDate, queryKeys } from '@/lib';
 import { COLLECTION_VISIBILITY_LABELS } from '@/types/enums';
 import { theme } from '@/theme';
@@ -32,6 +32,12 @@ export function HomeScreen() {
     queryFn: () => collectionApi.list(0, 5),
   });
 
+  const dueCount = useApiQuery({
+    key: queryKeys.reviewDueCount(),
+    queryFn: () => reviewApi.getDueCount(),
+    retry: false,
+  });
+
   useEffect(() => {
     if (recent.isError) console.warn('recent collections load failed');
   }, [recent.isError]);
@@ -42,6 +48,14 @@ export function HomeScreen() {
     },
     [navigation]
   );
+
+  const goPractice = useCallback(() => {
+    navigation.navigate('Practice' as never);
+  }, [navigation]);
+
+  const dueNumber = dueCount.data?.due ?? 0;
+  const newNumber = dueCount.data?.newCards ?? 0;
+  const hasSomethingDue = dueNumber + newNumber > 0;
 
   return (
     <Screen padded={false}>
@@ -59,6 +73,30 @@ export function HomeScreen() {
             Hôm nay học gì? Mình gợi ý vài bộ sưu tập nè.
           </Text>
         </View>
+
+        {hasSomethingDue ? (
+          <Card
+            onPress={goPractice}
+            style={styles.continueCard}
+          >
+            <View style={styles.continueRow}>
+              <Icon name="flame" color={theme.colors.primary} size={28} />
+              <View style={styles.continueText}>
+                <Text variant="bodyMedium">
+                  Tiếp tục học hôm nay
+                </Text>
+                <Text variant="caption" color="muted">
+                  {dueNumber} cần ôn · {newNumber} thẻ mới
+                </Text>
+              </View>
+              <View style={styles.continueCta}>
+                <Text variant="smallMedium" color="primary">
+                  Bắt đầu →
+                </Text>
+              </View>
+            </View>
+          </Card>
+        ) : null}
 
         <SectionHeader
           title="Bộ sưu tập gần đây"
@@ -189,6 +227,10 @@ const styles = StyleSheet.create({
   recentCard: { padding: theme.spacing.md, gap: theme.spacing.xxs },
   recentHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   toolsRow: { flexDirection: 'row', gap: theme.spacing.md },
+  continueCard: { padding: theme.spacing.base },
+  continueRow: { flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md },
+  continueText: { flex: 1, gap: theme.spacing.xxs },
+  continueCta: { alignItems: 'flex-end' },
   toolCard: {
     flex: 1,
     padding: theme.spacing.base,

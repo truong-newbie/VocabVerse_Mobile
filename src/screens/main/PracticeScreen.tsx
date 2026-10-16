@@ -1,12 +1,8 @@
-import { Screen, Text } from '@/components/ui';
-
-export function PracticeScreen() {
-  return (
-    <Screen>
-      <Text variant="h1">Luyện tập</Text>
-      <Text variant="body" color="secondary">
-        Flashcard, Quiz, Typing, Shadowing, Roleplay.
-      </Text>
-    </Screen>
-  );
-}
+/**
+ * The Practice tab now hosts the PracticeStack (see
+ * src/navigation/MainNavigator.tsx). This file is kept as a
+ * fallback that re-exports DueTodayScreen for any caller that
+ * still imports PracticeScreen directly (e.g. unit tests, deep
+ * links from notifications before the navigator is mounted).
+ */
+export { DueTodayScreen as PracticeScreen } from '@/screens/practice';
