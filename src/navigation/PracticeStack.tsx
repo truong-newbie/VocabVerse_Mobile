@@ -8,6 +8,9 @@ import {
   QuizStartScreen,
   ReviewCompleteScreen,
   ReviewSessionScreen,
+  TypingResultScreen,
+  TypingSessionScreen,
+  TypingStartScreen,
 } from '@/screens/practice';
 import { theme } from '@/theme';
 import type { PracticeStackParamList } from './types';
@@ -61,6 +64,21 @@ export function PracticeStack() {
       <Stack.Screen
         name="QuizResult"
         component={QuizResultScreen}
+        options={{ title: 'Kết quả', headerBackVisible: false, gestureEnabled: false }}
+      />
+      <Stack.Screen
+        name="TypingStart"
+        component={TypingStartScreen}
+        options={{ title: 'Luyện gõ' }}
+      />
+      <Stack.Screen
+        name="TypingSession"
+        component={TypingSessionScreen}
+        options={{ title: 'Đang gõ' }}
+      />
+      <Stack.Screen
+        name="TypingResult"
+        component={TypingResultScreen}
         options={{ title: 'Kết quả', headerBackVisible: false, gestureEnabled: false }}
       />
     </Stack.Navigator>

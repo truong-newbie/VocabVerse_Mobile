@@ -6,3 +6,6 @@ export { HistoryScreen } from './HistoryScreen';
 export { QuizStartScreen } from './QuizStartScreen';
 export { QuizSessionScreen } from './QuizSessionScreen';
 export { QuizResultScreen } from './QuizResultScreen';
+export { TypingStartScreen } from './TypingStartScreen';
+export { TypingSessionScreen } from './TypingSessionScreen';
+export { TypingResultScreen } from './TypingResultScreen';
