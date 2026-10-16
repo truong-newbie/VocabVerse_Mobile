@@ -13,6 +13,8 @@ export type CollectionStackParamList = {
   VocabularyEdit: { vocabularyId?: string; collectionId?: string };
   ReviewSettings: { collectionId: string };
   AddVocabulary: { collectionId: string };
+  DictionarySearch: { collectionId?: string };
+  AiNormalize: { collectionId?: string };
 };
 
 export type MainTabParamList = {

@@ -1,5 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AddVocabularyScreen } from '@/screens/vocabulary/AddVocabularyScreen';
+import { DictionarySearchScreen } from '@/screens/vocabulary/DictionarySearchScreen';
+import { AiNormalizeScreen } from '@/screens/ai/AiNormalizeScreen';
 import {
   CollectionDetailScreen,
   CollectionsScreen,
@@ -56,6 +58,16 @@ export function CollectionStack() {
         name="ReviewSettings"
         component={ReviewSettingsScreen}
         options={{ title: 'Cài đặt ôn tập' }}
+      />
+      <Stack.Screen
+        name="DictionarySearch"
+        component={DictionarySearchScreen}
+        options={{ title: 'Tra từ điển' }}
+      />
+      <Stack.Screen
+        name="AiNormalize"
+        component={AiNormalizeScreen}
+        options={{ title: 'AI Normalize' }}
       />
     </Stack.Navigator>
   );
