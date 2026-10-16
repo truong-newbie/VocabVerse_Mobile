@@ -11,3 +11,6 @@ export { TypingSessionScreen } from './TypingSessionScreen';
 export { TypingResultScreen } from './TypingResultScreen';
 export { ShadowingListScreen } from './ShadowingListScreen';
 export { ShadowingScreen } from './ShadowingScreen';
+export { RoleplayListScreen } from './RoleplayListScreen';
+export { RoleplaySessionScreen } from './RoleplaySessionScreen';
+export { RoleplayResultScreen } from './RoleplayResultScreen';

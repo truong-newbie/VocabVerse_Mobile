@@ -91,6 +91,21 @@ export function PracticeStack() {
         component={ShadowingScreen}
         options={{ title: 'Lesson' }}
       />
+      <Stack.Screen
+        name="RoleplayList"
+        component={RoleplayListScreen}
+        options={{ title: 'Roleplay' }}
+      />
+      <Stack.Screen
+        name="RoleplaySession"
+        component={RoleplaySessionScreen}
+        options={{ title: 'Đang hội thoại' }}
+      />
+      <Stack.Screen
+        name="RoleplayResult"
+        component={RoleplayResultScreen}
+        options={{ title: 'Kết thúc', headerBackVisible: false, gestureEnabled: false }}
+      />
     </Stack.Navigator>
   );
 }
