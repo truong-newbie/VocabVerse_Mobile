@@ -1,6 +1,7 @@
-import { PageResponse } from '@/types/api';
+import type { PageResponse } from '@/types/api';
+import type { VocabularySource } from '@/types/enums';
 
-export type VocabularySource = 'DICTIONARY' | 'MANUAL' | 'AI_NORMALIZED';
+export type { VocabularySource };
 
 export interface VocabularyExample {
   en: string;
@@ -9,6 +10,7 @@ export interface VocabularyExample {
 
 export interface VocabularyResponse {
   id: string;
+  ownerId: string | null;
   word: string;
   normalizedWord: string;
   phonetic: string | null;
@@ -20,20 +22,30 @@ export interface VocabularyResponse {
   antonyms: string[];
   examples: VocabularyExample[];
   source: VocabularySource;
-}
-
-export interface CollectionResponse {
-  id: string;
-  ownerId: string | null;
-  title: string;
-  description: string | null;
-  visibility: 'PRIVATE' | 'PUBLIC' | 'SYSTEM';
-  thumbnailUrl: string | null;
-  totalWords: number;
-  featured: boolean;
   createdAt: string;
   updatedAt: string;
 }
 
-export type CollectionPageResponse = PageResponse<CollectionResponse>;
 export type VocabularyPageResponse = PageResponse<VocabularyResponse>;
+
+export interface CreateVocabularyRequest {
+  word: string;
+  phonetic?: string;
+  partOfSpeech?: string;
+  meaningVi?: string;
+  meaningEn?: string;
+  synonyms?: string[];
+  antonyms?: string[];
+  examples?: VocabularyExample[];
+}
+
+export interface UpdateVocabularyRequest {
+  word?: string;
+  phonetic?: string;
+  partOfSpeech?: string;
+  meaningVi?: string;
+  meaningEn?: string;
+  synonyms?: string[];
+  antonyms?: string[];
+  examples?: VocabularyExample[];
+}

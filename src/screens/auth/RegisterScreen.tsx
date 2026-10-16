@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { z } from 'zod';
 import { Button, Input, Screen, Text } from '@/components/ui';
+import { useToast } from '@/hooks';
 import { useAuthStore } from '@/stores';
+import { formResolver, z } from '@/lib';
 import { theme } from '@/theme';
 import type { AuthStackParamList } from '@/navigation/types';
 
@@ -14,31 +15,27 @@ const schema = z.object({
   password: z.string().min(8, 'Mật khẩu tối thiểu 8 ký tự'),
 });
 
+type FormData = z.infer<typeof schema>;
+
 export function RegisterScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
   const register = useAuthStore(s => s.register);
-  const [submitting, setSubmitting] = useState(false);
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [validationError, setValidationError] = useState<string | null>(null);
+  const toast = useToast();
 
-  const onSubmit = async () => {
-    const result = schema.safeParse({ fullName, email, password });
-    if (!result.success) {
-      setValidationError(result.error.issues[0]?.message ?? 'Lỗi dữ liệu');
-      return;
-    }
-    setValidationError(null);
-    setSubmitting(true);
+  const { control, handleSubmit, formState, setError } = useForm<FormData>({
+    resolver: formResolver(schema),
+    defaultValues: { fullName: '', email: '', password: '' },
+  });
+
+  const onSubmit = handleSubmit(async values => {
     try {
-      await register(result.data);
-    } catch {
-      // ignore
-    } finally {
-      setSubmitting(false);
+      await register(values);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Đăng ký thất bại';
+      setError('root', { message: msg });
+      toast.error(msg);
     }
-  };
+  });
 
   return (
     <Screen scroll>
@@ -47,31 +44,59 @@ export function RegisterScreen() {
       </Text>
 
       <View style={styles.form}>
-        <Input label="Họ tên" value={fullName} onChangeText={setFullName} />
-        <Input
-          label="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
+        <Controller
+          control={control}
+          name="fullName"
+          render={({ field, fieldState }) => (
+            <Input
+              label="Họ tên"
+              value={field.value}
+              onChangeText={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error?.message}
+            />
+          )}
         />
-        <Input
-          label="Mật khẩu"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
+        <Controller
+          control={control}
+          name="email"
+          render={({ field, fieldState }) => (
+            <Input
+              label="Email"
+              value={field.value}
+              onChangeText={field.onChange}
+              onBlur={field.onBlur}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              error={fieldState.error?.message}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="password"
+          render={({ field, fieldState }) => (
+            <Input
+              label="Mật khẩu"
+              value={field.value}
+              onChangeText={field.onChange}
+              onBlur={field.onBlur}
+              secureTextEntry
+              error={fieldState.error?.message}
+            />
+          )}
         />
 
-        {validationError ? (
+        {formState.errors.root?.message ? (
           <Text variant="small" color="danger">
-            {validationError}
+            {formState.errors.root.message}
           </Text>
         ) : null}
 
         <Button
           title="Đăng ký"
           onPress={onSubmit}
-          isLoading={submitting}
+          isLoading={formState.isSubmitting}
           fullWidth
         />
         <Button
