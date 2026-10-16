@@ -1,0 +1,39 @@
+# OSX
+.DS_Store
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnpm-store/
+
+# Android
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+*.keystore
+!debug.keystore
+
+# iOS
+ios/Pods/
+ios/build/
+ios/*.xcworkspace/xcuserdata/
+ios/*.xcodeproj/xcuserdata/
+ios/Podfile.lock
+
+# Bundle artifacts
+*.jsbundle
+
+# Metro
+.metro-health-check*
+
+# Misc
+.env
+.env.local
+*.log
+coverage/
+
+# IDE
+.idea/
+.vscode/
