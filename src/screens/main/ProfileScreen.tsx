@@ -1,21 +1,26 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Card, ErrorState, LoadingScreen, Screen, Text } from '@/components/ui';
+import { Button, Card, ErrorState, LoadingScreen, Screen, Text } from '@/components/ui';
 import { Icon, StatsCard } from '@/components/common';
 import { useApiQuery } from '@/hooks';
 import { userApi } from '@/api';
 import { queryKeys } from '@/lib';
-import { useAuthStore } from '@/stores';
+import { useAuthStore, useSettingsStore } from '@/stores';
 import { formatDate, theme } from '@/theme';
 import type { ProfileStackParamList } from '@/navigation/types';
+import { ConfirmLogoutDialog } from './ConfirmLogoutDialog';
 
 type Nav = NativeStackNavigationProp<ProfileStackParamList, 'Profile'>;
 
 export function ProfileScreen() {
   const navigation = useNavigation<Nav>();
   const user = useAuthStore(s => s.user);
+  const logout = useAuthStore(s => s.logout);
+  const resetSettings = useSettingsStore(s => s.reset);
+  const [confirming, setConfirming] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
 
   const me = useApiQuery({
     key: queryKeys.user(),
@@ -33,6 +38,20 @@ export function ProfileScreen() {
     },
     [navigation]
   );
+
+  const onConfirmLogout = useCallback(async () => {
+    setLoggingOut(true);
+    try {
+      // Wipe the persisted device preferences in addition to the
+      // server-side session, so the next user (or this same user
+      // after a re-install) starts from defaults.
+      resetSettings();
+      await logout();
+    } finally {
+      setLoggingOut(false);
+      setConfirming(false);
+    }
+  }, [logout, resetSettings]);
 
   if (me.isLoading || stats.isLoading) {
     return <LoadingScreen />;
@@ -127,7 +146,21 @@ export function ProfileScreen() {
           subtitle="Tắt / bật nhắc nhở, quiet hours"
           onPress={() => goTo('NotificationSettings')}
         />
+
+        <Button
+          title="Đăng xuất"
+          variant="danger"
+          onPress={() => setConfirming(true)}
+          fullWidth
+        />
       </ScrollView>
+
+      <ConfirmLogoutDialog
+        visible={confirming}
+        onConfirm={onConfirmLogout}
+        onCancel={() => setConfirming(false)}
+        isPending={loggingOut}
+      />
     </Screen>
   );
 }
