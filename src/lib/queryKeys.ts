@@ -55,6 +55,10 @@ export const queryKeys = {
   notifications: (params?: object) => ['notifications', params] as const,
   notificationHistory: (params?: object) =>
     ['notifications', 'history', params] as const,
+
+  user: () => ['user', 'me'] as const,
+  userStats: () => ['user', 'stats'] as const,
+  notificationSettings: () => ['user', 'notification-settings'] as const,
 } as const;
 
 export type QueryKeyOf = QueryKey | readonly unknown[];

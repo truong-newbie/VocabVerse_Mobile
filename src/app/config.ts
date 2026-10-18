@@ -5,4 +5,6 @@ export const STORAGE_KEYS = {
   ACCESS_TOKEN: 'vv.access_token',
   REFRESH_TOKEN: 'vv.refresh_token',
   USER: 'vv.user',
+  /** Persisted user preferences (locale, theme, daily reminder). */
+  SETTINGS: 'vv.settings',
 } as const;

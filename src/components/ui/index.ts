@@ -5,3 +5,4 @@ export { Screen } from './Screen';
 export { LoadingScreen } from './LoadingScreen';
 export { ErrorState, EmptyState } from './ErrorState';
 export { ToastHost } from './Toast';
+export { Switch } from './Switch';

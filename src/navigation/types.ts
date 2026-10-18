@@ -48,6 +48,18 @@ export type MainTabParamList = {
   Collections: NavigatorScreenParams<CollectionStackParamList>;
   Practice: NavigatorScreenParams<PracticeStackParamList>;
   Profile: undefined;
+  EditProfile: undefined;
+  ChangePassword: undefined;
+  Settings: undefined;
+  NotificationSettings: undefined;
+};
+
+export type ProfileStackParamList = {
+  Profile: undefined;
+  EditProfile: undefined;
+  ChangePassword: undefined;
+  Settings: undefined;
+  NotificationSettings: undefined;
 };
 
 export type RootStackParamList = {
