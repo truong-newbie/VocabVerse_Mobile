@@ -9,3 +9,4 @@ export { TextArea } from './TextArea';
 export { Chip } from './Chip';
 export { StatsCard } from './StatsCard';
 export { AudioControls } from './AudioControls';
+export { ProfileSkeleton } from './ProfileSkeleton';

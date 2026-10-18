@@ -3,7 +3,7 @@ import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Button, Card, ErrorState, LoadingScreen, Screen, Text } from '@/components/ui';
-import { Icon, StatsCard } from '@/components/common';
+import { Icon, StatsCard, ProfileSkeleton } from '@/components/common';
 import { useApiQuery } from '@/hooks';
 import { userApi } from '@/api';
 import { queryKeys } from '@/lib';
@@ -54,7 +54,7 @@ export function ProfileScreen() {
   }, [logout, resetSettings]);
 
   if (me.isLoading || stats.isLoading) {
-    return <LoadingScreen />;
+    return <ProfileSkeleton />;
   }
 
   if (me.isError) {
