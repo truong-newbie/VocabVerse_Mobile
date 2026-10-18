@@ -20,3 +20,4 @@ export { quizApi } from './quiz.api';
 export { typingApi } from './typing.api';
 export { shadowingApi } from './shadowing.api';
 export { roleplayApi } from './roleplay.api';
+export { userApi } from './user.api';
